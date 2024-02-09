@@ -21,4 +21,6 @@
     <string name="ronaldinho_description"> 2 times (2004, 2005)</string>
     <string name="kaka_description"> 1 time (2007)</string>
     <string name="nationality">%s</string>
+    <string name="about">About:</string>
+    <string name="expand_button_content_description">See more or less information about a player.</string>
 </resources>

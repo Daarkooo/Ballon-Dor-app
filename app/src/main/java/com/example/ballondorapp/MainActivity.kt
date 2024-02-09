@@ -2,16 +2,20 @@ package com.example.ballondorapp
 
 import android.graphics.Paint.Align
 import android.os.Bundle
+import android.text.BoringLayout
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.ballondorapp.data.Player
 import com.example.ballondorapp.data.players
 import com.example.compose.BallonDorAppTheme
+import kotlin.math.exp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,11 +60,14 @@ fun BallonDorApp(){
     }
 }
 
+
+
 @Composable
 fun ListItem(
     player: Player,
     modifier: Modifier = Modifier
 ){
+    var expanded by remember { mutableStateOf(false) }
     Card(modifier = modifier){
         Row(
             modifier = modifier
@@ -68,7 +76,30 @@ fun ListItem(
         ) {
             PlayerIcon(player.imageResourceId)
             PlayerInformation(player.name, player.nationality)
+            Spacer(modifier = Modifier.weight(1f)) // to do space and align element
+            PlayerItemButton(
+                expanded = expanded,
+                onClick = {}
+            )
         }
+    }
+}
+
+@Composable
+private fun PlayerItemButton(
+    expanded: Boolean,
+    onClick: () -> Unit, // unit like void in java
+    modifier: Modifier = Modifier
+){
+    IconButton(
+        onClick = onClick,
+        modifier = modifier
+    ){
+        Icon(
+            imageVector = Icons.Filled.ExpandMore,
+            contentDescription = stringResource(R.string.expand_button_content_description),
+            tint = MaterialTheme.colorScheme.secondary
+        )
     }
 }
 
@@ -82,7 +113,7 @@ fun PlayerIcon(
            .size(dimensionResource(R.dimen.image_size))
            .padding(dimensionResource(R.dimen.padding_small))
            .clip(MaterialTheme.shapes.small),
-       contentScale = ContentScale.FillHeight,
+       contentScale = ContentScale.Crop,
        painter = painterResource(playerIcon),
        contentDescription = null
    )
@@ -144,8 +175,8 @@ fun BallonDorPreview() {
     }
 }
 
-@Preview(showBackground = true,
-    showSystemUi = true)
+//@Preview(showBackground = true,
+//    showSystemUi = true)
 @Composable
 fun BallonDorDarkThemPreview() {
     BallonDorAppTheme(darkTheme = true) {
