@@ -89,12 +89,12 @@ fun PlayersItem(
     Card(modifier = modifier){
         Column(
             modifier = Modifier
-                .animateContentSize(
-                    animationSpec = spring(
-                        dampingRatio = Spring.DampingRatioNoBouncy,
-                        stiffness = Spring.StiffnessMedium
-                    )
-                )
+//                .animateContentSize(
+//                    animationSpec = spring(
+//                        dampingRatio = Spring.DampingRatioNoBouncy,
+//                        stiffness = Spring.StiffnessMedium
+//                    )
+//                )
 //                .background(color = color)
         ) {
             Row(
