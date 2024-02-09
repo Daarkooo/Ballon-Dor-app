@@ -10,14 +10,15 @@
     <string name="ronaldo">Ronaldo</string>
     <string name="ronaldinho">Ronaldinho</string>
     <string name="kaka">Kaka</string>
-    <string name="messi_description">(Argentina): 8 times (2009, 2010, 2011, 2012, 2015, 2019, 2021, 2023)</string>
-    <string name="cr7_description">(Portugal): 5 times (2008, 2013, 2014, 2016, 2017)</string>
-    <string name="platini_description">(France): 3 times (1983, 1984, 1985) </string>
-    <string name="cruyff_description">(Netherlands): 3 times (1971, 1973, 1974) </string>
-    <string name="vanBasten_description">(Netherlands): 3 times (1988, 1989, 1992)</string>
-    <string name="beckenbauer_description">(Germany): 2 times (1972, 1976)</string>
-    <string name="zidane_description">(France): 1 time (1998)</string>
-    <string name="ronaldo_description">(Brazil): 2 times (1997, 2002)</string>
-    <string name="ronaldinho_description">(Brazil) :2 times (2004, 2005)</string>
-    <string name="kaka_description">(Brazil): 1 time (2007)</string>
+    <string name="messi_description"> 8 times (2009, 2010, 2011, 2012, 2015, 2019, 2021, 2023)</string>
+    <string name="cr7_description"> 5 times (2008, 2013, 2014, 2016, 2017)</string>
+    <string name="platini_description"> 3 times (1983, 1984, 1985) </string>
+    <string name="cruyff_description"> 3 times (1971, 1973, 1974) </string>
+    <string name="vanBasten_description"> 3 times (1988, 1989, 1992)</string>
+    <string name="beckenbauer_description"> 2 times (1972, 1976)</string>
+    <string name="zidane_description"> 1 time (1998)</string>
+    <string name="ronaldo_description"> 2 times (1997, 2002)</string>
+    <string name="ronaldinho_description"> 2 times (2004, 2005)</string>
+    <string name="kaka_description"> 1 time (2007)</string>
+    <string name="nationality">%s</string>
 </resources>
