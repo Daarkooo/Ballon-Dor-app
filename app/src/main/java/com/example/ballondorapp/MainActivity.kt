@@ -23,6 +23,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.ballondorapp.data.Player
 import com.example.ballondorapp.data.players
@@ -53,7 +57,7 @@ fun BallonDorApp(){
         it ->
         LazyColumn(contentPadding = it){
             items(players){
-                ListItem(player = it,
+                PlayersItem(player = it,
                     modifier = Modifier.padding(dimensionResource(R.dimen.padding_small)))
             }
         }
@@ -63,23 +67,35 @@ fun BallonDorApp(){
 
 
 @Composable
-fun ListItem(
+fun PlayersItem(
     player: Player,
     modifier: Modifier = Modifier
 ){
     var expanded by remember { mutableStateOf(false) }
     Card(modifier = modifier){
-        Row(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(dimensionResource(R.dimen.padding_small))
-        ) {
-            PlayerIcon(player.imageResourceId)
-            PlayerInformation(player.name, player.nationality)
-            Spacer(modifier = Modifier.weight(1f)) // to do space and align element
-            PlayerItemButton(
-                expanded = expanded,
-                onClick = {}
+        Column {
+            Row(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(dimensionResource(R.dimen.padding_small))
+            ) {
+                PlayerIcon(player.imageResourceId)
+                PlayerInformation(player.name, player.nationality)
+                Spacer(modifier = Modifier.weight(1f)) // to do space and align element
+                PlayerItemButton(
+                    expanded = expanded,
+                    onClick = {}
+                )
+            }
+            WinningYear(
+                player.winningYear,
+                player.numBallonDor,
+                modifier = Modifier.padding(
+                    start = dimensionResource(R.dimen.padding_medium),
+                    top = dimensionResource(R.dimen.padding_small),
+                    end = dimensionResource(R.dimen.padding_medium),
+                    bottom = dimensionResource(R.dimen.padding_medium)
+                )
             )
         }
     }
@@ -102,6 +118,25 @@ private fun PlayerItemButton(
         )
     }
 }
+
+@Composable
+fun WinningYear(
+    @StringRes winningYear: Int,
+    numBallonDor:Int,
+    modifier: Modifier = Modifier
+){
+    Column(modifier = modifier){
+        Text(
+            text = stringResource(R.string.about, numBallonDor),
+            style = MaterialTheme.typography.labelSmall
+        )
+        Text(
+            text = stringResource(winningYear),
+            style = MaterialTheme.typography.bodyLarge
+        )
+    }
+}
+
 
 @Composable
 fun PlayerIcon(
