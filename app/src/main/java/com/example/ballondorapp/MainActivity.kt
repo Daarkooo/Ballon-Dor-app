@@ -7,18 +7,25 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -28,6 +35,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.ballondorapp.data.Player
 import com.example.ballondorapp.data.players
 import com.example.compose.BallonDorAppTheme
@@ -72,8 +80,23 @@ fun PlayersItem(
     modifier: Modifier = Modifier
 ){
     var expanded by remember { mutableStateOf(false) }
+//    val color: Color by animateColorAsState(
+//        targetValue = if (expanded) MaterialTheme.colorScheme.tertiaryContainer
+//        else MaterialTheme.colorScheme.primaryContainer,
+//    )
+
+
     Card(modifier = modifier){
-        Column {
+        Column(
+            modifier = Modifier
+                .animateContentSize(
+                    animationSpec = spring(
+                        dampingRatio = Spring.DampingRatioNoBouncy,
+                        stiffness = Spring.StiffnessMedium
+                    )
+                )
+//                .background(color = color)
+        ) {
             Row(
                 modifier = modifier
                     .fillMaxWidth()
@@ -84,19 +107,20 @@ fun PlayersItem(
                 Spacer(modifier = Modifier.weight(1f)) // to do space and align element
                 PlayerItemButton(
                     expanded = expanded,
-                    onClick = {}
+                    onClick = { expanded = !expanded}
                 )
             }
-            WinningYear(
-                player.winningYear,
-                player.numBallonDor,
-                modifier = Modifier.padding(
-                    start = dimensionResource(R.dimen.padding_medium),
-                    top = dimensionResource(R.dimen.padding_small),
-                    end = dimensionResource(R.dimen.padding_medium),
-                    bottom = dimensionResource(R.dimen.padding_medium)
+            if(expanded){
+                WinningYear(
+                    player.winningYear,
+                    player.numBallonDor,
+                    modifier = Modifier.padding(
+                        start = dimensionResource(R.dimen.padding_medium),
+                        end = dimensionResource(R.dimen.padding_medium),
+                        bottom = dimensionResource(R.dimen.padding_medium)
+                    )
                 )
-            )
+            }
         }
     }
 }
@@ -112,7 +136,7 @@ private fun PlayerItemButton(
         modifier = modifier
     ){
         Icon(
-            imageVector = Icons.Filled.ExpandMore,
+            imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
             contentDescription = stringResource(R.string.expand_button_content_description),
             tint = MaterialTheme.colorScheme.secondary
         )
